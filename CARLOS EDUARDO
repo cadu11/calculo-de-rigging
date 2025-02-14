@@ -1,0 +1,50 @@
+#include <stdio.h>
+#include <math.h>
+
+// Funções para cálculos
+float calcular_pressao(float peso, float area) {
+    return peso / area;
+}
+
+float calcular_carga_perna(float peso_total, float distancia, float comprimento_total) {
+    return peso_total * (distancia / comprimento_total);
+}
+
+int main() {
+    float peso_carga, area_patola, pressao;
+    float distancia1, distancia2, comprimento_total;
+    float carga_perna1, carga_perna2;
+
+    // Entrada de dados
+    printf("\n--- Plano de Rigging ---\n");
+    printf("Informe o peso da carga (em toneladas): ");
+    scanf("%f", &peso_carga);
+
+    printf("Informe a área de contato da patola (em m^2): ");
+    scanf("%f", &area_patola);
+
+    printf("Informe a distância da carga até a perna 1 (em metros): ");
+    scanf("%f", &distancia1);
+
+    printf("Informe a distância da carga até a perna 2 (em metros): ");
+    scanf("%f", &distancia2);
+
+    // Cálculos
+    comprimento_total = distancia1 + distancia2;
+    pressao = calcular_pressao(peso_carga * 1000, area_patola); // Convertendo peso para kg
+    carga_perna1 = calcular_carga_perna(peso_carga, distancia2, comprimento_total);
+    carga_perna2 = calcular_carga_perna(peso_carga, distancia1, comprimento_total);
+
+    // Resultados
+    printf("\n--- Resultados ---\n");
+    printf("Pressão exercida pelas patolas: %.2f kPa\n", pressao);
+    printf("Carga na perna 1: %.2f toneladas\n", carga_perna1);
+    printf("Carga na perna 2: %.2f toneladas\n", carga_perna2);
+
+    // Validação
+    if (pressao > 250) {
+        printf("ATENÇÃO: A pressão excede o limite seguro para o solo!\n");
+    }
+
+    return 0;
+}
